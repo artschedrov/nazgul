@@ -35,6 +35,11 @@ public class GameBoard extends JPanel implements KeyListener {
         int x, y;
         if(Reference.currentFloor.isFirstFloor()) {
             x=280; y=100;
+            g.setFont(new Font("arial", Font.ITALIC, 18));
+            g.setColor(Color.gray);
+            g.drawString("\"Come not between the Nazgûl and his prey! Or he will not slay thee in thy turn.", 210, 300);
+            g.drawString("He will bear thee away to the houses of lamentation, beyond all darkness,", 210, 320);
+            g.drawString("where thy flesh shall be devoured, and thy shriveled mind be left naked to the Lidless Eye...\"", 210, 340);
 
         }
         else if(Floor.currentFloor == 1) {
@@ -62,7 +67,14 @@ public class GameBoard extends JPanel implements KeyListener {
             if(Reference.currentFloor.isFirstFloor()) {
                 x=280; y+=15;
 //                g.drawString("a roguelike", 640, 210);
-                g.drawString("Press SPACE to start", 450, 410);
+//                g.setFont(new Font("arial", Font.ITALIC, 18));
+//                g.setColor(Color.gray);
+//                g.drawString("\"Come not between the Nazgûl and his prey! Or he will not slay thee in thy turn.", 230, 300);
+//                g.drawString("He will bear thee away to the houses of lamentation, beyond all darkness,", 230, 320);
+//                g.drawString("where thy flesh shall be devoured, and thy shriveled mind be left naked to the Lidless Eye...\"", 230, 340);
+
+                g.setFont(new Font("Monospaced", Font.PLAIN, 15));
+                g.drawString("Press SPACE to start", 420, 510);
             }
             else if(Floor.currentFloor == 1) {
                 x=200; y+=15;
@@ -75,9 +87,11 @@ public class GameBoard extends JPanel implements KeyListener {
         //Player stats
         if(!Reference.currentFloor.isFirstFloor() && !(Floor.currentFloor == 1)) {
             g.setFont(new Font("arial", Font.PLAIN, 15));
-            g.drawString("Player", 800, 50);
+            g.setColor(Color.GREEN);
+            g.drawString(Reference.player.getName(), 800, 50);
             g.drawString(Reference.player.race, 800, 70);
             g.setFont(new Font("arial", Font.PLAIN, 15));
+            g.setColor(Color.WHITE);
             g.drawString("HP: ", 800, 110);
             g.drawString("STR: ", 800, 135);
             g.drawString("DEF: ", 800, 165);

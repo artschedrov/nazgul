@@ -25,15 +25,18 @@ public class Functions {
                 break;
             case HUMAN:
                 Reference.player.setRace("Human");
+                Reference.player.setName("Glodram");
                 Reference.currentFloor = new Floor(2);
                 break;
             case ELF:
                 Reference.player.setRace("Elf");
+                Reference.player.setName("Aenorin");
                 Reference.currentFloor = new Floor(2);
                 break;
 
             case DWARF:
                 Reference.player.setRace("Dwarf");
+                Reference.player.setName("Bramdur");
                 Reference.currentFloor = new Floor(2);
                 break;
 //            case RACE:
