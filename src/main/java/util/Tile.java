@@ -18,6 +18,7 @@ public enum Tile {
     SPACE1('`'),
     STAFF('_'),
     SOFT_ARMOUR('('),
+    GOBLIN('g'),
     KOBOLD('k');
 
 

@@ -1,10 +1,13 @@
 package game;
 
 import elements.Floor;
+import elements.Monster;
 import elements.Player;
 import gui.GameBoard;
+import util.Functions;
 
 import javax.swing.*;
+import java.util.ArrayList;
 //import java.util.ArrayList;
 
 public class Main {
@@ -36,6 +39,8 @@ public class Main {
         //initialization
         Reference.currentFloor = new Floor(0);
         Reference.player = new Player(3, 2);
+        Reference.monsters = new ArrayList<Monster>();
+        Functions.initMovingTiles();
 
     }
 }

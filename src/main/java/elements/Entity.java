@@ -12,8 +12,10 @@ public class Entity {
     protected int strenght;
     protected int defence;
 
-    public Entity(int posX, int posY) {
+    public Entity(int posX, int posY, int health) {
+
         this.setPos(posX, posY);
+        this.health=health;
     }
     public void setPos(int posX, int posY) {
         this.posX=posX; this.posY=posY;
@@ -22,6 +24,8 @@ public class Entity {
 
     /**Getter Method*/
     public int getY() {return posY;}
+
+    public float getHP() {return health;}
 
     protected void move(Action dir) {
         switch(dir) {

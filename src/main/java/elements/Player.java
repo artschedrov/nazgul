@@ -7,7 +7,7 @@ public class Player extends Entity {
     private Action facing;
     public String race;
     public Player(int posX, int posY) {
-        super(posX, posY);
+        super(posX, posY, 20);
     }
 
     @Override

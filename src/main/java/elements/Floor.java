@@ -3,8 +3,10 @@ package elements;
 import java.util.ArrayList;
 
 import game.Reference;
+import util.Functions;
 import util.ResourceManager;
 import util.Tile;
+
 public class Floor {
     private ArrayList<ArrayList<Tile>> tiles;
     private boolean firstFloor;
@@ -42,8 +44,8 @@ public class Floor {
                         tiles.get(i).add(Tile.HP_POTION); break;
                     case '/':
                         tiles.get(i).add(Tile.DOOR); break;
-                    case 'M':
-                        tiles.get(i).add(Tile.MONSTER); break;
+                    case 'g':
+                        tiles.get(i).add(Tile.GOBLIN); break;
                     case ' ':
                         tiles.get(i).add(Tile.SPACE); break;
                     case '\\':
@@ -98,5 +100,22 @@ public class Floor {
      * @param x - The x coordinate of the tile
      * @param y - The y coordinate of the tile*/
     public char getTileChar(int x, int y) {return tiles.get(y).get(x).symbol();}
+
+    public void updateMonstersPos() {
+        //Deletes old pos
+        for(int i=0;i<this.getHeight();i++) {
+            for(int j=0;j<this.getWidth();j++) {
+                if(tiles.get(i).get(j) == Tile.GOBLIN)
+                    tiles.get(i).set(j, Tile.NOTHING);
+            }
+        }
+        //Sets new pos
+        for(int i=0;i<Reference.monsters.size();i++) {
+            if(Reference.monsters.get(i).getHP()<=0)
+                Reference.monsters.remove(i);
+            else
+                tiles.get(Reference.monsters.get(i).getY()).set(Reference.monsters.get(i).getX(), Tile.GOBLIN);
+        }
+    }
     public boolean isFirstFloor() {return firstFloor;}
 }
