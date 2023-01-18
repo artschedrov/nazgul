@@ -19,7 +19,8 @@ public enum Tile {
     STAFF('_'),
     SOFT_ARMOUR('('),
     GOBLIN('g'),
-    KOBOLD('k');
+    KOBOLD('k'),
+    BAT('b');
 
 
     private char symbol;
