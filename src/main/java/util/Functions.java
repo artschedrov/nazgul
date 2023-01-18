@@ -1,5 +1,6 @@
 package util;
 
+import elements.Bat;
 import elements.Floor;
 import elements.Goblin;
 import game.Reference;
@@ -9,7 +10,8 @@ import java.util.Random;
 public class Functions {
 
     private static String message = " ";
-
+    private static String message2 = " ";
+    private static String message3 = " ";
     public static void initMovingTiles() {
 
         Reference.monsters.clear();
@@ -25,6 +27,10 @@ public class Functions {
                         case GOBLIN:
                             Reference.monsters.add(new Goblin("Goblin", x, y, 5));
                             System.out.println("Goblin create");
+                            break;
+                        case BAT:
+                            Reference.monsters.add(new Bat("Bat", x,y, 2));
+                            System.out.println("Bat create");
                         default:
                             break;
                     }
@@ -77,18 +83,18 @@ public class Functions {
                 break; //Move the player if it is in front of one of these tiles
             case WALL:
                 message = "You ran into a wall!";
-//                message2 = " ";
-//                message3 = " ";
+                message2 = " ";
+                message3 = " ";
                 break;
             case STAIRS:
                 Reference.player.move(action);
                 Reference.currentFloor = new Floor(Floor.currentFloor + 1);
                 message = "You went into a new floor!";
-                //message2 = " ";
-                //message3 = " ";
+                message2 = " ";
+                message3 = " ";
                 //floorsCleared++;
                 Functions.initMovingTiles();
-                break; //Randomly change floor
+                break;
         }
 
     }
@@ -113,8 +119,8 @@ public class Functions {
                 monsterX = Reference.player.getX()+1; monsterY = Reference.player.getY(); break;
         }
 
-//        for(int i=0;i<Reference.goblins.size();i++) {
-//            if(Reference.goblins.get(i).getX() == monsterX && Reference.goblins.get(i).getY() == monsterY) {
+//        for(int i=0;i<Reference.monsters.size();i++) {
+//            if(Reference.monsters.get(i).getX() == monsterX && Reference.monsters.get(i).getY() == monsterY) {
 //                float playerAttack = Reference.player.getStr()-(Reference.monsters.get(i).getDef()/10)*Reference.player.getStr();
 //                float monsterAttck = Reference.monsters.get(i).getStr()-(Reference.player.getDef()/10)*Reference.monsters.get(i).getStr();
 //                Reference.monsters.get(i).damage(playerAttack);
@@ -129,4 +135,10 @@ public class Functions {
         Random rand = new Random();
         return rand.nextInt(n)+1;
     }
+
+    public static String getMessage() {return message;}
+    /**Returns the second message to display on the screen*/
+    public static String getMessage2() {return message2;}
+    /**Returns the third message to display on the screen*/
+    public static String getMessage3() {return message3;}
 }
