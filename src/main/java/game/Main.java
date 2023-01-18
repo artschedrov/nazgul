@@ -41,6 +41,5 @@ public class Main {
         Reference.player = new Player(3, 2);
         Reference.monsters = new ArrayList<Monster>();
         Functions.initMovingTiles();
-
     }
 }

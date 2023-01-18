@@ -8,6 +8,5 @@ public enum Action {
     SPACE,
     HUMAN,
     ELF,
-    DWARF,
-    RACE;
+    DWARF;
 }
