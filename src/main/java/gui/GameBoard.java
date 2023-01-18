@@ -80,27 +80,27 @@ public class GameBoard extends JPanel implements KeyListener {
         //Player stats
         if(!Reference.currentFloor.isFirstFloor() && !(Floor.currentFloor == 1)) {
             g.setFont(new Font("arial", Font.PLAIN, 15));
-            g.setColor(Color.GREEN);
+            g.setColor(Color.CYAN);
             g.drawString(Reference.player.getName(), 800, 50);
             g.drawString(Reference.player.race, 800, 70);
             g.setFont(new Font("arial", Font.PLAIN, 15));
             g.setColor(Color.WHITE);
-            g.drawString("HP: ", 800, 110);
-            g.drawString("STR: ", 800, 135);
-            g.drawString("DEF: ", 800, 165);
+            g.drawString("HP: " + Reference.player.getHP() + "/" + Reference.player.getMaxHP(), 800, 110);
+            g.drawString("AC: " + Reference.player.getStr(), 800, 135);
+            g.drawString("STR: " + Reference.player.getAC(), 800, 165);
             g.drawString("Gold: ", 800, 190);
             g.drawString("Keys: ", 800, 215);
             g.drawString("Weapon Equipped:", 800, 240);
             g.drawString("Armor Equipped:", 800, 265);
+
+            //Message
+            g.drawString(Functions.getMessage(), 15, 480);
+            g.drawString(Functions.getMessage2(), 15, 500);
+            g.drawString(Functions.getMessage3(), 15, 520);
         }
         //g.drawString(Reference.player.getWeapon().getName(), 810, 205);
         //g.drawString("Armor Equipped:", 800, 230);
         //g.drawString(Reference.player.getArmor().getName(), 810, 250);
-
-        //Message
-//        g.drawString(Functions.getMessage(), 15, 480);
-//        g.drawString(Functions.getMessage2(), 15, 500);
-//        g.drawString(Functions.getMessage3(), 15, 520);
 
     }
 

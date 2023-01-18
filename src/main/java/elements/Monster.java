@@ -10,7 +10,7 @@ public class Monster extends Entity {
     private String name;
 
     public Monster(int posX, int posY, int health) {
-        super(posX, posY, health);
+        super(posX, posY, health, 5, 5);
         this.name = name;
     }
 

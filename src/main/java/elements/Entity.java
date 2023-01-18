@@ -6,26 +6,48 @@ public class Entity {
     protected int posX;
     protected int posY;
 
-    protected float health;
+    protected int health;
     protected int maxHealth;
 
-    protected int strenght;
-    protected int defence;
+    protected int str;
+    protected int ac;
 
-    public Entity(int posX, int posY, int health) {
-
+    public Entity(int posX, int posY, int health, int str, int ac) {
         this.setPos(posX, posY);
-        this.health=health;
+        this.health = health;
+        this.maxHealth = health;
+        this.str = str;
+        this.ac = ac;
     }
     public void setPos(int posX, int posY) {
         this.posX=posX; this.posY=posY;
     }
-    public int getX() {return posX;}
+    public int getX() {
+        return posX;
+    }
 
     /**Getter Method*/
-    public int getY() {return posY;}
+    public int getY() {
+        return posY;
+    }
 
-    public float getHP() {return health;}
+    public int getHP() {
+        return health;
+    }
+
+    /**Getter Method*/
+    public int getMaxHP() {
+        return maxHealth;
+    }
+
+    public int getStr() {
+        return str;
+    }
+
+    /**Getter Method*/
+    public int getAC() {
+        return ac;
+    }
 
     protected void move(Action dir) {
         switch(dir) {
