@@ -60,6 +60,8 @@ public class Floor {
                         tiles.get(i).add(Tile.SOFT_ARMOUR); break;
                     case 'k':
                         tiles.get(i).add(Tile.KOBOLD); break;
+                    case 'b':
+                        tiles.get(i).add(Tile.BAT); break;
                 }
             }
         }
