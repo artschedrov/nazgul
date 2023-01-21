@@ -26,7 +26,7 @@ public class GameBoard extends JPanel implements KeyListener {
         g.fillRect(0, 0, Reference.windowWidth, Reference.windowHeight);
         g.setColor(Color.WHITE);
 
-        g.drawRoundRect(5, 5, Reference.windowWidth-10, Reference.windowHeight-150, 5, 5);
+        //g.drawRoundRect(5, 5, Reference.windowWidth-10, Reference.windowHeight-150, 5, 5);
 
 
         //Floor
@@ -51,8 +51,8 @@ public class GameBoard extends JPanel implements KeyListener {
 
         } else {
             x=200; y=100;
-            g.drawRoundRect(5, 5, Reference.windowWidth-220, Reference.windowHeight-150, 5, 5);
-            g.drawRoundRect(5, Reference.windowHeight-140, Reference.windowWidth-15, Reference.windowHeight-500, 5, 5);
+            //g.drawRoundRect(15, 15, Reference.windowWidth-220, Reference.windowHeight-150, 5, 5);
+            //g.drawRoundRect(5, Reference.windowHeight-140, Reference.windowWidth-15, Reference.windowHeight-500, 5, 5);
 
             if (Floor.currentFloor == 2) {
                 g.drawString("Use WASD or arrow keys to move", 350, 150);
@@ -82,26 +82,27 @@ public class GameBoard extends JPanel implements KeyListener {
         if(!Reference.currentFloor.isFirstFloor() && !(Floor.currentFloor == 1)) {
             g.setFont(new Font("arial", Font.PLAIN, 15));
             g.setColor(Color.CYAN);
-            g.drawString(Reference.player.getName(), 800, 50);
-            g.drawString(Reference.player.race, 800, 70);
+            g.drawString(Reference.player.getName(), 10, 50);
+            g.drawString(Reference.player.race, 10, 70);
             g.setFont(new Font("arial", Font.PLAIN, 15));
             g.setColor(Color.WHITE);
-            g.drawString("HP: " + Reference.player.getHP() + "/" + Reference.player.getMaxHP(), 800, 110);
-            g.drawString("AC: " + Reference.player.getAC(), 800, 135);
-            g.drawString("STR: " + Reference.player.getStr(), 800, 165);
-            g.drawString("DEX: " + Reference.player.getDex(), 800, 190);
-            g.drawString("CON: " + Reference.player.getCon(), 800, 215);
-            g.drawString("Gold: ", 800, 245);
-            g.drawString("Keys: ", 800, 270);
-            g.drawString("Weapon Equipped:", 800, 300);
-            g.drawString("Small Sword", 810, 325);
-            g.drawString("Armor Equipped:", 800, 350);
-            g.drawString("Soft Leather Armour", 810, 375);
+            g.drawString("HP: " + Reference.player.getHP() + "/" + Reference.player.getMaxHP(), 10, 110);
+            g.drawString("AC: " + Reference.player.getAC(), 10, 135);
+            g.drawString("STR: " + Reference.player.getStr(), 10, 165);
+            g.drawString("DEX: " + Reference.player.getDex(), 10, 190);
+            g.drawString("CON: " + Reference.player.getCon(), 10, 215);
+            g.drawString("Gold: ", 10, 245);
+            g.drawString("Keys: ", 10, 270);
+            g.drawString("Weapon Equipped:", 10, 300);
+            g.drawString(Reference.player.getWeapon().getName(), 20, 325);
+            g.drawString("Armor Equipped:", 10, 350);
+            g.drawString(Reference.player.getArmor().getName(), 20, 375);
 
             //Message
             g.drawString(Functions.getMessage(), 15, 480);
             g.drawString(Functions.getMessage2(), 15, 500);
             g.drawString(Functions.getMessage3(), 15, 520);
+            g.drawString(Functions.getMessage4(), 15, 540);
         }
         //g.drawString(Reference.player.getWeapon().getName(), 810, 205);
         //g.drawString("Armor Equipped:", 800, 230);
