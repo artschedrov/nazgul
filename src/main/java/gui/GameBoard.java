@@ -21,7 +21,6 @@ public class GameBoard extends JPanel implements KeyListener {
         super.paintComponent(g);
         //repaint();
         //revalidate();
-        System.out.println("Repaint");
         //Background
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, Reference.windowWidth, Reference.windowHeight);
@@ -58,6 +57,8 @@ public class GameBoard extends JPanel implements KeyListener {
             if (Floor.currentFloor == 2) {
                 g.drawString("Use WASD or arrow keys to move", 350, 150);
                 g.drawString("Walk towards the stairs > to start", 350, 170);
+                g.drawString("A spell has been cast on you that hides your identity.", 350, 100);
+                g.drawString("The enemy will think that you are an orc.", 350, 120);
             }
 
 
@@ -86,12 +87,16 @@ public class GameBoard extends JPanel implements KeyListener {
             g.setFont(new Font("arial", Font.PLAIN, 15));
             g.setColor(Color.WHITE);
             g.drawString("HP: " + Reference.player.getHP() + "/" + Reference.player.getMaxHP(), 800, 110);
-            g.drawString("AC: " + Reference.player.getStr(), 800, 135);
-            g.drawString("STR: " + Reference.player.getAC(), 800, 165);
-            g.drawString("Gold: ", 800, 190);
-            g.drawString("Keys: ", 800, 215);
-            g.drawString("Weapon Equipped:", 800, 240);
-            g.drawString("Armor Equipped:", 800, 265);
+            g.drawString("AC: " + Reference.player.getAC(), 800, 135);
+            g.drawString("STR: " + Reference.player.getStr(), 800, 165);
+            g.drawString("DEX: " + Reference.player.getDex(), 800, 190);
+            g.drawString("CON: " + Reference.player.getCon(), 800, 215);
+            g.drawString("Gold: ", 800, 245);
+            g.drawString("Keys: ", 800, 270);
+            g.drawString("Weapon Equipped:", 800, 300);
+            g.drawString("Small Sword", 810, 325);
+            g.drawString("Armor Equipped:", 800, 350);
+            g.drawString("Soft Leather Armour", 810, 375);
 
             //Message
             g.drawString(Functions.getMessage(), 15, 480);

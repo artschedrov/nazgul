@@ -1,5 +1,6 @@
 package util;
 
+import elements.Armor;
 import elements.Bat;
 import elements.Floor;
 import elements.Goblin;
@@ -25,11 +26,11 @@ public class Functions {
                             System.out.println("Player create");
                             break;
                         case GOBLIN:
-                            Reference.monsters.add(new Goblin("Goblin", x, y, 5));
+                            Reference.monsters.add(new Goblin("Goblin", x, y, 10));
                             System.out.println("Goblin create");
                             break;
                         case BAT:
-                            Reference.monsters.add(new Bat("Bat", x,y, 2));
+                            Reference.monsters.add(new Bat("Bat", x,y, 2, 5, 12, 10));
                             System.out.println("Bat create");
                         default:
                             break;
@@ -59,17 +60,29 @@ public class Functions {
             case HUMAN:
                 Reference.player.setRace("Human");
                 Reference.player.setName("Glodram");
+                Reference.player.setStr(10);
+                Reference.player.setDex(10);
+                Reference.player.setCon(10);
+                Reference.player.equipArmor(Armor.softLeatherArmour);
                 Reference.currentFloor = new Floor(2);
                 break;
             case ELF:
                 Reference.player.setRace("Elf");
                 Reference.player.setName("Aenorin");
+                Reference.player.setStr(9);
+                Reference.player.setDex(12);
+                Reference.player.setCon(9);
+                Reference.player.equipArmor(Armor.softLeatherArmour);
                 Reference.currentFloor = new Floor(2);
                 break;
 
             case DWARF:
                 Reference.player.setRace("Dwarf");
                 Reference.player.setName("Bramdur");
+                Reference.player.setStr(12);
+                Reference.player.setDex(9);
+                Reference.player.setCon(12);
+                Reference.player.equipArmor(Armor.softLeatherArmour);
                 Reference.currentFloor = new Floor(2);
                 break;
         }

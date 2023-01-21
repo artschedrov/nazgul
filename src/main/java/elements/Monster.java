@@ -9,8 +9,8 @@ public class Monster extends Entity {
 
     private String name;
 
-    public Monster(int posX, int posY, int health) {
-        super(posX, posY, health, 5, 5);
+    public Monster(int posX, int posY, int health, int str, int dex, int ac) {
+        super(posX, posY, health, 5, 5, 10, 10);
         this.name = name;
     }
 

@@ -10,7 +10,7 @@ public class Goblin extends Monster {
     private String name;
 
     public Goblin(String name, int posX, int posY, int health) {
-        super(posX, posY, health);
+        super(posX, posY, health, 8, 14, 12);
         this.name = name;
         System.out.println("[Goblin]: Creating goblin");
     }
