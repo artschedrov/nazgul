@@ -6,9 +6,11 @@ public class Player extends Entity {
     private String name;
     private Action facing;
     public String race;
+    private Weapon equippedWeapon;
     private Armor equippedArmor;
     public Player(int posX, int posY) {
         super(posX, posY, 20, 10, 10, 10, 10);
+        this.equippedWeapon = Weapon.smallSword;
         this.equippedArmor = Armor.softLeatherArmour;
     }
 
@@ -38,11 +40,17 @@ public class Player extends Entity {
         return this.name;
     }
 
-//    public int getAC() {
-//        return this.ac;
-//    }
+    public int getAC() {
+        return this.ac;
+    }
     public void setAC() {
         ac = super.getDex() + equippedArmor.getAc();
+    }
+
+    public void equipWeapon(Weapon weapon) {
+        this.equippedWeapon = weapon;
+        //this.strenght=1;
+        //this.strenght+=this.equippedWeapon.getDmg();
     }
 
     public void equipArmor(Armor armor) {
@@ -51,7 +59,9 @@ public class Player extends Entity {
         this.ac+=this.equippedArmor.getAc();
     }
 
-    public int getArmor() {
-        return equippedArmor.getAc();
+    public Weapon getWeapon() {return equippedWeapon;}
+    /**Getter Method*/
+    public Armor getArmor() {
+        return equippedArmor;
     }
 }

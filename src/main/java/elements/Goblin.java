@@ -10,7 +10,7 @@ public class Goblin extends Monster {
     private String name;
 
     public Goblin(String name, int posX, int posY, int health) {
-        super(posX, posY, health, 8, 14, 12);
+        super(name, posX, posY, health, 6, 14, 12);
         this.name = name;
         System.out.println("[Goblin]: Creating goblin");
     }
@@ -48,5 +48,8 @@ public class Goblin extends Monster {
 
     public String getName() {
         return super.getName();
+    }
+    public int getAC() {
+        return super.getDef();
     }
 }

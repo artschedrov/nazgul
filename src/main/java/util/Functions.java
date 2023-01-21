@@ -13,6 +13,7 @@ public class Functions {
     private static String message = " ";
     private static String message2 = " ";
     private static String message3 = " ";
+    private static String message4 = " ";
     public static void initMovingTiles() {
 
         Reference.monsters.clear();
@@ -63,6 +64,7 @@ public class Functions {
                 Reference.player.setStr(10);
                 Reference.player.setDex(10);
                 Reference.player.setCon(10);
+                Reference.player.setHP(10);
                 Reference.player.equipArmor(Armor.softLeatherArmour);
                 Reference.currentFloor = new Floor(2);
                 break;
@@ -72,6 +74,7 @@ public class Functions {
                 Reference.player.setStr(9);
                 Reference.player.setDex(12);
                 Reference.player.setCon(9);
+                Reference.player.setHP(9);
                 Reference.player.equipArmor(Armor.softLeatherArmour);
                 Reference.currentFloor = new Floor(2);
                 break;
@@ -82,6 +85,7 @@ public class Functions {
                 Reference.player.setStr(12);
                 Reference.player.setDex(9);
                 Reference.player.setCon(12);
+                Reference.player.setHP(12);
                 Reference.player.equipArmor(Armor.softLeatherArmour);
                 Reference.currentFloor = new Floor(2);
                 break;
@@ -91,13 +95,15 @@ public class Functions {
             case NOTHING:
                 Reference.player.move(action);
                 message = " ";
-//                message2 = " ";
-//                message3 = " ";
+                message2 = " ";
+                message3 = " ";
+                message4 = " ";
                 break; //Move the player if it is in front of one of these tiles
             case WALL:
                 message = "You ran into a wall!";
                 message2 = " ";
                 message3 = " ";
+                message4 = " ";
                 break;
             case STAIRS:
                 Reference.player.move(action);
@@ -108,6 +114,12 @@ public class Functions {
                 //floorsCleared++;
                 Functions.initMovingTiles();
                 break;
+            case GOBLIN:
+                message = "You encountered a monster!";
+                message2 = " ";
+                message3 = " ";
+                Functions.monsterEncounter(action);
+                break; //Handles encounters with monsters
         }
 
     }
@@ -120,6 +132,8 @@ public class Functions {
 
     public static void monsterEncounter(Action action) {
         int monsterX=0, monsterY=0;
+        boolean playerMissed = false;
+        boolean mosnterMissed = false;
 
         switch(action) {
             case FOWARD:
@@ -132,16 +146,49 @@ public class Functions {
                 monsterX = Reference.player.getX()+1; monsterY = Reference.player.getY(); break;
         }
 
-//        for(int i=0;i<Reference.monsters.size();i++) {
-//            if(Reference.monsters.get(i).getX() == monsterX && Reference.monsters.get(i).getY() == monsterY) {
-//                float playerAttack = Reference.player.getStr()-(Reference.monsters.get(i).getDef()/10)*Reference.player.getStr();
-//                float monsterAttck = Reference.monsters.get(i).getStr()-(Reference.player.getDef()/10)*Reference.monsters.get(i).getStr();
-//                Reference.monsters.get(i).damage(playerAttack);
-//                Reference.player.damage(monsterAttck);
-//                message2 = "You attacked the monster and left him with "+Reference.monsters.get(i).getHP()+" HP!";
-//                message3 = "The monster attacked you!";
-//            }
-//        }
+        for(int i=0;i<Reference.monsters.size();i++) {
+            if (Reference.monsters.get(i).getX() == monsterX && Reference.monsters.get(i).getY() == monsterY) {
+                //float playerAttack = Reference.player.getStr()-(Reference.monsters.get(i).getDef()/10)*Reference.player.getStr();
+                //int playerAttack = getRandomNumber(20) - Reference.monsters.get(i).getDef();
+                int checkHitPlayer = getRandomNumber(20);
+                int checkHitMonster = getRandomNumber(20);
+
+                if(checkHitPlayer > Reference.monsters.get(i).getDef()) {
+                    int checkDamage = getRandomNumber(Reference.player.getWeapon().getDmg());
+                    int playerAttack = checkDamage;
+                    message = "You are hit the " + Reference.monsters.get(i).getName() + " !";
+                    message2 = "You attacked the " + Reference.monsters.get(i).getName() + " and left him with " + playerAttack + " HP!";
+                } else {
+                    message = "You are missed!";
+                    playerMissed = true;
+                }
+
+                if(checkHitMonster > Reference.player.getAC()) {
+                    int checkDamageMonster = getRandomNumber(Reference.monsters.get(i).getStr());
+                    int monsterAttack = checkDamageMonster;
+                    if (playerMissed) {
+                        message2 = "The " + Reference.monsters.get(i).getName() + " hit you!";
+                        message3 = "The " + Reference.monsters.get(i).getName() + " attacked you and left you with " + monsterAttack + " HP!";
+                        message4 = " ";
+                        playerMissed = false;
+                    } else {
+                        message3 = "The " + Reference.monsters.get(i).getName() + " hit you!";
+                        message4 = "The " + Reference.monsters.get(i).getName() + " attacked you and left you with " + monsterAttack + " HP!";
+                    }
+                    Reference.player.damage(monsterAttack);
+                } else {
+                    if (playerMissed) {
+                        message2 = "The " + Reference.monsters.get(i).getName() + " missed.";
+                        message3 = " ";
+                        message4 = " ";
+                        playerMissed = false;
+                    } else {
+                        message3 = "The " + Reference.monsters.get(i).getName() + " missed.";
+                        message4 = " ";
+                    }
+                }
+            }
+        }
     }
 
     public static int getRandomNumber(int n) {
@@ -154,4 +201,5 @@ public class Functions {
     public static String getMessage2() {return message2;}
     /**Returns the third message to display on the screen*/
     public static String getMessage3() {return message3;}
+    public static String getMessage4() {return message4;}
 }

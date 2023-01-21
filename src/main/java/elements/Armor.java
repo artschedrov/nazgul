@@ -14,5 +14,7 @@ public class Armor {
         this.name=name; this.ac=ac;
     }
 
+    public String getName() {return name;}
+
     public int getAc() {return ac;}
 }

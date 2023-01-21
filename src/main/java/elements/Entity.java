@@ -38,11 +38,10 @@ public class Entity {
         return posY;
     }
 
+    public void setHP(int con) {
+        this.health = con;
+    }
     public int getHP() {
-        health = getCon();
-//        if(Objects.equals(Reference.player.getRace(), "Elf")) {
-//            health = health - 4;
-//        }
         return health;
     }
 
@@ -75,9 +74,15 @@ public class Entity {
 
     /**Getter Method*/
     public int getAC() {
-        ac = getDex() + Reference.player.getArmor();
+        ac = getDex() + Reference.player.getArmor().getAc();
         return ac;
     }
+
+    public void damage(int amount) {
+        this.health-=amount;
+    }
+
+    public int getDef() {return ac;}
 
     protected void move(Action dir) {
         switch(dir) {
