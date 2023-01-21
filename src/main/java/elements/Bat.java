@@ -2,8 +2,8 @@ package elements;
 
 public class Bat extends Monster {
     private String name;
-    public Bat(String name, int posX, int posY, int health) {
-        super(posX, posY, health);
+    public Bat(String name, int posX, int posY, int health, int str, int dex, int ac) {
+        super(posX, posY, health, str, dex, ac);
         this.name = name;
         System.out.println("[Bat]: Creating bat");
     }
