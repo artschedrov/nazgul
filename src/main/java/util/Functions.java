@@ -27,7 +27,7 @@ public class Functions {
                             System.out.println("Goblin create");
                             break;
                         case BAT:
-                            Reference.monsters.add(new Bat("Bat", x,y, 2, 5, 12, 10));
+                            Reference.monsters.add(new Bat("Bat", x,y, 4, 2, 12, 12));
                             System.out.println("Bat create");
                         default:
                             break;
@@ -105,6 +105,7 @@ public class Functions {
                 Functions.initMovingTiles();
                 break;
             case GOBLIN:
+            case BAT:
                 Functions.monsterEncounter(action);
                 break; //Handles encounters with monsters
         }
@@ -120,7 +121,6 @@ public class Functions {
     public static void monsterEncounter(Action action) {
         int monsterX=0, monsterY=0;
         boolean playerMissed = false;
-        boolean mosnterMissed = false;
 
         switch(action) {
             case FOWARD:

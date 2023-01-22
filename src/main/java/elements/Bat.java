@@ -15,4 +15,7 @@ public class Bat extends Monster {
     public String getName() {
         return super.getName();
     }
+    public int getAC() {
+        return super.getDef();
+    }
 }

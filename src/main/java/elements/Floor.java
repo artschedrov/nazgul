@@ -107,8 +107,13 @@ public class Floor {
         //Deletes old pos
         for(int i=0;i<this.getHeight();i++) {
             for(int j=0;j<this.getWidth();j++) {
-                if(tiles.get(i).get(j) == Tile.GOBLIN)
-                    tiles.get(i).set(j, Tile.NOTHING);
+                switch (tiles.get(i).get(j)) {
+                    case GOBLIN:
+                    case BAT:
+                        tiles.get(i).set(j, Tile.NOTHING);
+                        break;
+
+                }
             }
         }
         //Sets new pos
@@ -116,7 +121,14 @@ public class Floor {
             if(Reference.monsters.get(i).getHP()<=0)
                 Reference.monsters.remove(i);
             else
-                tiles.get(Reference.monsters.get(i).getY()).set(Reference.monsters.get(i).getX(), Tile.GOBLIN);
+                switch (Reference.monsters.get(i).getName()) {
+                    case "Bat":
+                        tiles.get(Reference.monsters.get(i).getY()).set(Reference.monsters.get(i).getX(), Tile.BAT);
+                        break;
+                    case "Goblin":
+                        tiles.get(Reference.monsters.get(i).getY()).set(Reference.monsters.get(i).getX(), Tile.GOBLIN);
+                        break;
+                }
         }
     }
     public boolean isFirstFloor() {return firstFloor;}
