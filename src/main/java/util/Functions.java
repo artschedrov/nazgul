@@ -9,11 +9,7 @@ import game.Reference;
 import java.util.Random;
 
 public class Functions {
-
-    private static String message = " ";
-    private static String message2 = " ";
-    private static String message3 = " ";
-    private static String message4 = " ";
+    private  static String[] messages = {" ", " ", " ", " "};
     public static void initMovingTiles() {
 
         Reference.monsters.clear();
@@ -94,30 +90,21 @@ public class Functions {
         switch(tile) {
             case NOTHING:
                 Reference.player.move(action);
-                message = " ";
-                message2 = " ";
-                message3 = " ";
-                message4 = " ";
+                for (int i = 0; i < messages.length; i++) {
+                    messages[i] = " ";
+                }
                 break; //Move the player if it is in front of one of these tiles
             case WALL:
-                message = "You ran into a wall!";
-                message2 = " ";
-                message3 = " ";
-                message4 = " ";
+                messages[0] = "You ran into a wall!";
                 break;
             case STAIRS:
                 Reference.player.move(action);
                 Reference.currentFloor = new Floor(Floor.currentFloor + 1);
-                message = "You went into a new floor!";
-                message2 = " ";
-                message3 = " ";
+                messages[0] = "You went into a new floor!";
                 //floorsCleared++;
                 Functions.initMovingTiles();
                 break;
             case GOBLIN:
-                message = "You encountered a monster!";
-                message2 = " ";
-                message3 = " ";
                 Functions.monsterEncounter(action);
                 break; //Handles encounters with monsters
         }
@@ -148,18 +135,16 @@ public class Functions {
 
         for(int i=0;i<Reference.monsters.size();i++) {
             if (Reference.monsters.get(i).getX() == monsterX && Reference.monsters.get(i).getY() == monsterY) {
-                //float playerAttack = Reference.player.getStr()-(Reference.monsters.get(i).getDef()/10)*Reference.player.getStr();
-                //int playerAttack = getRandomNumber(20) - Reference.monsters.get(i).getDef();
                 int checkHitPlayer = getRandomNumber(20);
                 int checkHitMonster = getRandomNumber(20);
 
                 if(checkHitPlayer > Reference.monsters.get(i).getDef()) {
                     int checkDamage = getRandomNumber(Reference.player.getWeapon().getDmg());
                     int playerAttack = checkDamage;
-                    message = "You are hit the " + Reference.monsters.get(i).getName() + " !";
-                    message2 = "You attacked the " + Reference.monsters.get(i).getName() + " and left him with " + playerAttack + " HP!";
+                    messages[0] = "You are hit the " + Reference.monsters.get(i).getName() + " !";
+                    messages[1] = "You attacked the " + Reference.monsters.get(i).getName() + " and left him with " + playerAttack + " HP!";
                 } else {
-                    message = "You are missed!";
+                    messages[0] = "You are missed!";
                     playerMissed = true;
                 }
 
@@ -167,24 +152,24 @@ public class Functions {
                     int checkDamageMonster = getRandomNumber(Reference.monsters.get(i).getStr());
                     int monsterAttack = checkDamageMonster;
                     if (playerMissed) {
-                        message2 = "The " + Reference.monsters.get(i).getName() + " hit you!";
-                        message3 = "The " + Reference.monsters.get(i).getName() + " attacked you and left you with " + monsterAttack + " HP!";
-                        message4 = " ";
+                        messages[1] = "The " + Reference.monsters.get(i).getName() + " hit you!";
+                        messages[2] = "The " + Reference.monsters.get(i).getName() + " attacked you and left you with " + monsterAttack + " HP!";
+                        messages[3] = " ";
                         playerMissed = false;
                     } else {
-                        message3 = "The " + Reference.monsters.get(i).getName() + " hit you!";
-                        message4 = "The " + Reference.monsters.get(i).getName() + " attacked you and left you with " + monsterAttack + " HP!";
+                        messages[2] = "The " + Reference.monsters.get(i).getName() + " hit you!";
+                        messages[3] = "The " + Reference.monsters.get(i).getName() + " attacked you and left you with " + monsterAttack + " HP!";
                     }
                     Reference.player.damage(monsterAttack);
                 } else {
                     if (playerMissed) {
-                        message2 = "The " + Reference.monsters.get(i).getName() + " missed.";
-                        message3 = " ";
-                        message4 = " ";
+                        messages[1] = "The " + Reference.monsters.get(i).getName() + " missed.";
+                        messages[2] = " ";
+                        messages[3] = " ";
                         playerMissed = false;
                     } else {
-                        message3 = "The " + Reference.monsters.get(i).getName() + " missed.";
-                        message4 = " ";
+                        messages[2] = "The " + Reference.monsters.get(i).getName() + " missed.";
+                        messages[3] = " ";
                     }
                 }
             }
@@ -196,10 +181,7 @@ public class Functions {
         return rand.nextInt(n)+1;
     }
 
-    public static String getMessage() {return message;}
-    /**Returns the second message to display on the screen*/
-    public static String getMessage2() {return message2;}
-    /**Returns the third message to display on the screen*/
-    public static String getMessage3() {return message3;}
-    public static String getMessage4() {return message4;}
+    public static String getMessageFromArray(int index) {
+        return messages[index];
+    }
 }

@@ -99,15 +99,12 @@ public class GameBoard extends JPanel implements KeyListener {
             g.drawString(Reference.player.getArmor().getName(), 20, 375);
 
             //Message
-            g.drawString(Functions.getMessage(), 15, 480);
-            g.drawString(Functions.getMessage2(), 15, 500);
-            g.drawString(Functions.getMessage3(), 15, 520);
-            g.drawString(Functions.getMessage4(), 15, 540);
-        }
-        //g.drawString(Reference.player.getWeapon().getName(), 810, 205);
-        //g.drawString("Armor Equipped:", 800, 230);
-        //g.drawString(Reference.player.getArmor().getName(), 810, 250);
 
+            g.drawString(Functions.getMessageFromArray(0), 15, 480);
+            g.drawString(Functions.getMessageFromArray(1), 15, 500);
+            g.drawString(Functions.getMessageFromArray(2), 15, 520);
+            g.drawString(Functions.getMessageFromArray(3), 15, 540);
+        }
     }
 
     @Override
@@ -131,7 +128,9 @@ public class GameBoard extends JPanel implements KeyListener {
             switch(arg0.getKeyCode()) {
                 //Move player foward
                 case KeyEvent.VK_SPACE:
-                    Functions.handlePlayerAction(Action.SPACE);
+                    if (Floor.currentFloor == 0) {
+                        Functions.handlePlayerAction(Action.SPACE);
+                    }
                     break;
                 case KeyEvent.VK_W:
                 case KeyEvent.VK_UP:

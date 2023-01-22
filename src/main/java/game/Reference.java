@@ -12,7 +12,6 @@ public class Reference {
     public static final int floorCount = 4;
     public static Player player;
     public static Floor currentFloor;
-
     public static ArrayList<Monster> monsters;
 
 }
