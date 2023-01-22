@@ -141,14 +141,19 @@ public class Functions {
                 if(checkHitPlayer > Reference.monsters.get(i).getDef()) {
                     int checkDamage = getRandomNumber(Reference.player.getWeapon().getDmg());
                     int playerAttack = checkDamage;
+                    Reference.monsters.get(i).damage(playerAttack);
                     messages[0] = "You are hit the " + Reference.monsters.get(i).getName() + " !";
                     messages[1] = "You attacked the " + Reference.monsters.get(i).getName() + " and left him with " + playerAttack + " HP!";
+                    if (Reference.monsters.get(i).getHP() <= 0) {
+                        messages[2] = "You killed the " + Reference.monsters.get(i).getName();
+                        return;
+                    }
                 } else {
                     messages[0] = "You are missed!";
                     playerMissed = true;
                 }
 
-                if(checkHitMonster > Reference.player.getAC()) {
+                if((checkHitMonster > Reference.player.getAC()) && (Reference.monsters.get(i).getHP() > 0)) {
                     int checkDamageMonster = getRandomNumber(Reference.monsters.get(i).getStr());
                     int monsterAttack = checkDamageMonster;
                     if (playerMissed) {
@@ -162,7 +167,10 @@ public class Functions {
                     }
                     Reference.player.damage(monsterAttack);
                 } else {
-                    if (playerMissed) {
+                    if (Reference.monsters.get(i).getHP() <= 0) {
+                        return;
+                    }
+                    else if (playerMissed) {
                         messages[1] = "The " + Reference.monsters.get(i).getName() + " missed.";
                         messages[2] = " ";
                         messages[3] = " ";
