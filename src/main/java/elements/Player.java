@@ -8,6 +8,7 @@ public class Player extends Entity {
     public String race;
     private Weapon equippedWeapon;
     private Armor equippedArmor;
+    private boolean alive = true;
     public Player(int posX, int posY) {
         super(posX, posY, 20, 10, 10, 10, 10);
         this.equippedWeapon = Weapon.smallSword;
@@ -64,4 +65,8 @@ public class Player extends Entity {
     public Armor getArmor() {
         return equippedArmor;
     }
+
+    public boolean isAlive() {return alive;}
+    /**Sets isAlive() to false*/
+    public void setDead() {this.alive=false;}
 }

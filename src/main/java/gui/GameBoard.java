@@ -125,49 +125,55 @@ public class GameBoard extends JPanel implements KeyListener {
             }
 
         } else {
-            switch(arg0.getKeyCode()) {
-                //Move player foward
-                case KeyEvent.VK_SPACE:
-                    if (Floor.currentFloor == 0) {
-                        Functions.handlePlayerAction(Action.SPACE);
-                    }
-                    break;
-                case KeyEvent.VK_W:
-                case KeyEvent.VK_UP:
-                    Reference.player.setFacing(Action.FOWARD);
-                    Functions.handlePlayerAction(Action.FOWARD);
-                    Reference.currentFloor.updatePlayerPos();
-                    Functions.moveMonsters();
-                    Reference.currentFloor.updateMonstersPos();
-                    break;
-                //Move player left
-                case KeyEvent.VK_A:
-                case KeyEvent.VK_LEFT:
-                    Reference.player.setFacing(Action.LEFT);
-                    Functions.handlePlayerAction(Action.LEFT);
-                    Reference.currentFloor.updatePlayerPos();
-                    Functions.moveMonsters();
-                    Reference.currentFloor.updateMonstersPos();
-                    break;
-                //Move player Backwards
-                case KeyEvent.VK_S:
-                case KeyEvent.VK_DOWN:
-                    Reference.player.setFacing(Action.BACKWARDS);
-                    Functions.handlePlayerAction(Action.BACKWARDS);
-                    Reference.currentFloor.updatePlayerPos();
-                    Functions.moveMonsters();
-                    Reference.currentFloor.updateMonstersPos();
-                    break;
-                //Move player right
-                case KeyEvent.VK_D:
-                case KeyEvent.VK_RIGHT:
-                    Reference.player.setFacing(Action.RIGHT);
-                    Functions.handlePlayerAction(Action.RIGHT);
-                    Reference.currentFloor.updatePlayerPos();
-                    Functions.moveMonsters();
-                    Reference.currentFloor.updateMonstersPos();
-                    break;
+            if (Reference.player.isAlive()) {
+                switch(arg0.getKeyCode()) {
+                    //Move player foward
+                    case KeyEvent.VK_SPACE:
+                        if (Floor.currentFloor == 0) {
+                            Functions.handlePlayerAction(Action.SPACE);
+                        }
+                        break;
+                    case KeyEvent.VK_W:
+                    case KeyEvent.VK_UP:
+                        Reference.player.setFacing(Action.FOWARD);
+                        Functions.handlePlayerAction(Action.FOWARD);
+                        Reference.currentFloor.updatePlayerPos();
+                        Functions.moveMonsters();
+                        Reference.currentFloor.updateMonstersPos();
+                        break;
+                    //Move player left
+                    case KeyEvent.VK_A:
+                    case KeyEvent.VK_LEFT:
+                        Reference.player.setFacing(Action.LEFT);
+                        Functions.handlePlayerAction(Action.LEFT);
+                        Reference.currentFloor.updatePlayerPos();
+                        Functions.moveMonsters();
+                        Reference.currentFloor.updateMonstersPos();
+                        break;
+                    //Move player Backwards
+                    case KeyEvent.VK_S:
+                    case KeyEvent.VK_DOWN:
+                        Reference.player.setFacing(Action.BACKWARDS);
+                        Functions.handlePlayerAction(Action.BACKWARDS);
+                        Reference.currentFloor.updatePlayerPos();
+                        Functions.moveMonsters();
+                        Reference.currentFloor.updateMonstersPos();
+                        break;
+                    //Move player right
+                    case KeyEvent.VK_D:
+                    case KeyEvent.VK_RIGHT:
+                        Reference.player.setFacing(Action.RIGHT);
+                        Functions.handlePlayerAction(Action.RIGHT);
+                        Reference.currentFloor.updatePlayerPos();
+                        Functions.moveMonsters();
+                        Reference.currentFloor.updateMonstersPos();
+                        break;
+                }
+                Functions.checkPlayerDeath();
+            } else {
+                Main.initGame();
             }
+
         }
     }
 

@@ -23,7 +23,7 @@ public class Functions {
                             System.out.println("Player create");
                             break;
                         case GOBLIN:
-                            Reference.monsters.add(new Goblin("Goblin", x, y, 10));
+                            Reference.monsters.add(new Goblin("Goblin", x, y, 20));
                             System.out.println("Goblin create");
                             break;
                         case BAT:
@@ -181,6 +181,14 @@ public class Functions {
                     }
                 }
             }
+        }
+    }
+
+    public static void checkPlayerDeath() {
+        if(Reference.player.getHP()<=0) {
+            messages[0] = "You died!";
+            messages[1] = "Press any button to continue";
+            Reference.player.setDead();
         }
     }
 
