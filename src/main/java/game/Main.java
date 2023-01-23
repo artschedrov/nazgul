@@ -1,6 +1,7 @@
 package game;
 
 import elements.Floor;
+import elements.Inventory;
 import elements.Monster;
 import elements.Player;
 import gui.GameBoard;
@@ -39,6 +40,7 @@ public class Main {
         //initialization
         Reference.currentFloor = new Floor(0);
         Reference.player = new Player(3, 2);
+        Reference.inventory = new Inventory(6);
         Reference.monsters = new ArrayList<Monster>();
         Functions.initMovingTiles();
     }

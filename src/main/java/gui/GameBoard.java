@@ -1,6 +1,7 @@
 package gui;
 
 import elements.Floor;
+import game.Main;
 import game.Reference;
 import util.Action;
 import util.Functions;
@@ -98,12 +99,20 @@ public class GameBoard extends JPanel implements KeyListener {
             g.drawString("Armor Equipped:", 10, 350);
             g.drawString(Reference.player.getArmor().getName(), 20, 375);
 
+            g.drawString("Items in your bag:", 830, 50);
+            g.drawString("[1] " + Reference.inventory.getBag()[0], 830, 75);
+            g.drawString("[2] " + Reference.inventory.getBag()[1], 830, 95);
+            g.drawString("[3] " + Reference.inventory.getBag()[2], 830, 115);
+            g.drawString("[4] " + Reference.inventory.getBag()[3], 830, 135);
+            g.drawString("[5] " + Reference.inventory.getBag()[4], 830, 155);
+            g.drawString("[6] " + Reference.inventory.getBag()[5], 830, 175);
             //Message
 
             g.drawString(Functions.getMessageFromArray(0), 15, 480);
             g.drawString(Functions.getMessageFromArray(1), 15, 500);
             g.drawString(Functions.getMessageFromArray(2), 15, 520);
             g.drawString(Functions.getMessageFromArray(3), 15, 540);
+
         }
     }
 
