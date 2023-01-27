@@ -1,9 +1,6 @@
 package game;
 
-import elements.Floor;
-import elements.Inventory;
-import elements.Monster;
-import elements.Player;
+import elements.*;
 
 import java.util.ArrayList;
 
@@ -15,5 +12,6 @@ public class Reference {
     public static Inventory inventory;
     public static Floor currentFloor;
     public static ArrayList<Monster> monsters;
+    public static ArrayList<Item> items;
 
 }

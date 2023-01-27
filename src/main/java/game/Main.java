@@ -1,9 +1,6 @@
 package game;
 
-import elements.Floor;
-import elements.Inventory;
-import elements.Monster;
-import elements.Player;
+import elements.*;
 import gui.GameBoard;
 import util.Functions;
 
@@ -42,6 +39,8 @@ public class Main {
         Reference.player = new Player(3, 2);
         Reference.inventory = new Inventory(6);
         Reference.monsters = new ArrayList<Monster>();
+        Reference.items = new ArrayList<Item>();
         Functions.initMovingTiles();
+        Functions.initItemsTiles();
     }
 }

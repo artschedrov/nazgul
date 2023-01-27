@@ -8,7 +8,7 @@ import util.ResourceManager;
 import util.Tile;
 
 public class Floor {
-    private ArrayList<ArrayList<Tile>> tiles;
+    public ArrayList<ArrayList<Tile>> tiles;
     private boolean firstFloor;
     public static int currentFloor;
 
@@ -41,7 +41,9 @@ public class Floor {
                     case 'T':
                         tiles.get(i).add(Tile.TREASURE); break;
                     case '!':
-                        tiles.get(i).add(Tile.HP_POTION); break;
+                        tiles.get(i).add(Tile.POTION); break;
+                    case '?':
+                        tiles.get(i).add(Tile.SCROLL); break;
                     case '/':
                         tiles.get(i).add(Tile.DOOR); break;
                     case 'g':
@@ -75,8 +77,10 @@ public class Floor {
         //Deletes old pos
         for(int i=0;i<this.getHeight();i++) {
             for(int j=0;j<this.getWidth();j++) {
-                if(tiles.get(i).get(j) == Tile.PLAYER)
+                if(tiles.get(i).get(j) == Tile.PLAYER) {
                     tiles.get(i).set(j, Tile.NOTHING);
+                }
+
             }
         }
         //Sets new pos

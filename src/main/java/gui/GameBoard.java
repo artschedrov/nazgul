@@ -177,6 +177,28 @@ public class GameBoard extends JPanel implements KeyListener {
                         Functions.moveMonsters();
                         Reference.currentFloor.updateMonstersPos();
                         break;
+                    case KeyEvent.VK_Y:
+                        Functions.makeDecision(true);
+                        Reference.currentFloor.updatePlayerPos();
+                        break;
+                    //Make decision No
+                    case KeyEvent.VK_N:
+                        Functions.makeDecision(false);
+                        Reference.currentFloor.updatePlayerPos();
+                        break;
+                    case KeyEvent.VK_1:
+                        Reference.inventory.useItemFromBag(0);
+                    case KeyEvent.VK_2:
+                        Reference.inventory.useItemFromBag(1);
+                    case KeyEvent.VK_3:
+                        Reference.inventory.useItemFromBag(2);
+                    case KeyEvent.VK_4:
+                        Reference.inventory.useItemFromBag(3);
+                    case KeyEvent.VK_5:
+                        Reference.inventory.useItemFromBag(4);
+                    case KeyEvent.VK_6:
+                        Reference.inventory.useItemFromBag(5);
+                        break;
                 }
                 Functions.checkPlayerDeath();
             } else {

@@ -10,7 +10,6 @@ public class Inventory {
         this.bagSize = bagSize;
         bag = new String[bagSize];
         Arrays.fill(bag, "Empty");
-        bag[0] = "a Scroll of Identity";
     }
 
     public String[] getBag() {
@@ -29,5 +28,14 @@ public class Inventory {
 
     public void deleteItemFromBag(int index) {
         bag[index] = "Empty";
+    }
+
+    public boolean useItemFromBag(int slot) {
+        if ( !(bag[slot] == "Empty" )) {
+            deleteItemFromBag(slot);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

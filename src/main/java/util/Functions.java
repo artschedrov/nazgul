@@ -1,15 +1,17 @@
 package util;
 
-import elements.Armor;
-import elements.Bat;
-import elements.Floor;
-import elements.Goblin;
+import elements.*;
 import game.Reference;
-
+import java.util.Arrays;
 import java.util.Random;
 
 public class Functions {
     private  static String[] messages = {" ", " ", " ", " "};
+    public static Decision decision = Decision.NONE;
+    public static boolean use = true;
+    public static String foundedItemName = "";
+    public static String foundedItemColor = "";
+
     public static void initMovingTiles() {
 
         Reference.monsters.clear();
@@ -29,6 +31,30 @@ public class Functions {
                         case BAT:
                             Reference.monsters.add(new Bat("Bat", x,y, 4, 2, 12, 12));
                             System.out.println("Bat create");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+            }
+        }
+    }
+
+    public static void initItemsTiles() {
+        Reference.items.clear();
+        for(int y=0;y<Reference.currentFloor.getHeight()-1;y++) {
+            for(int x=0;x<Reference.currentFloor.getWidth()-1;x++) {
+                if(Floor.currentFloor > 1) {
+                    switch(Reference.currentFloor.getTile(x, y)) {
+                        case POTION:
+                            Potion random = Potion.getRandomPotion();
+                            random.setPos(x, y);
+                            Reference.items.add(random);
+                            break;
+                        case SCROLL:
+                            System.out.println("Scroll create");
+                            break;
                         default:
                             break;
                     }
@@ -90,9 +116,7 @@ public class Functions {
         switch(tile) {
             case NOTHING:
                 Reference.player.move(action);
-                for (int i = 0; i < messages.length; i++) {
-                    messages[i] = " ";
-                }
+                Arrays.fill(messages, " ");
                 break; //Move the player if it is in front of one of these tiles
             case WALL:
                 messages[0] = "You ran into a wall!";
@@ -103,6 +127,10 @@ public class Functions {
                 messages[0] = "You went into a new floor!";
                 //floorsCleared++;
                 Functions.initMovingTiles();
+                Functions.initItemsTiles();
+                break;
+            case POTION:
+                Functions.itemEncounter(action);
                 break;
             case GOBLIN:
             case BAT:
@@ -181,6 +209,65 @@ public class Functions {
                     }
                 }
             }
+        }
+    }
+
+    public static void itemEncounter(Action action) {
+        int itemX=0, itemY=0;
+
+        switch(action) {
+            case FOWARD:
+                itemX = Reference.player.getX(); itemY = Reference.player.getY()-1; break;
+            case LEFT:
+                itemX = Reference.player.getX()-1; itemY = Reference.player.getY(); break;
+            case BACKWARDS:
+                itemX = Reference.player.getX(); itemY = Reference.player.getY()+1; break;
+            case RIGHT:
+                itemX = Reference.player.getX()+1; itemY = Reference.player.getY(); break;
+        }
+
+        for (int i = 0; i < Reference.items.size(); i++) {
+            if(Reference.items.get(i).getX() == itemX && Reference.items.get(i).getY() == itemY) {
+
+                if (Reference.items.get(i).getItemType() == ItemType.POTION) {
+                    foundedItemName = Reference.items.get(i).getName();
+                    foundedItemColor = "A " + Reference.items.get(i).getColor() + " Potion";
+                    System.out.println(Reference.items.get(i).getName());
+                    System.out.println(Reference.items.get(i).getColor());
+                    if(use) {
+                        messages[0] = "You found " + foundedItemColor +"! Do you want to drink it?";
+                        messages[1] = "   [Y] Yes     [N] No";
+                        decision = Decision.DRINK_HP_POTION;
+                    } else {
+                        messages[0] = "You found " + foundedItemColor +"! Do you want to take it?";
+                        messages[1] = "   [Y] Yes     [N] No";
+                        decision = Decision.TAKE_ITEM;
+                    }
+                }
+
+            }
+        }
+    }
+
+    public static void makeDecision(boolean answer) {
+        if(decision == Decision.NONE) {
+            return; //Nothing
+        } else if(decision == Decision.DRINK_HP_POTION && answer == true) {
+            //Reference.player.heal(Functions.getRandomNumber(5)+3);
+            messages[0] = "You drank " + foundedItemColor;
+            messages[1] = " ";
+            messages[2] = " ";
+            Reference.player.move(); //Drink potion
+        } else if(decision == Decision.DRINK_HP_POTION && answer == false) {
+            use = false;
+            messages[0] = " ";
+            messages[1] = " ";
+            messages[2] = " "; //Doesn't drink potion
+        } else if (decision == Decision.TAKE_ITEM && answer == true) {
+            messages[0] = "You take " + foundedItemColor;
+            Reference.inventory.addItemToBag(foundedItemColor);
+            Reference.player.move();
+            use = true;
         }
     }
 
