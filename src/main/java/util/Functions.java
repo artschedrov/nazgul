@@ -51,6 +51,8 @@ public class Functions {
                             Potion random = Potion.getRandomPotion();
                             random.setPos(x, y);
                             Reference.items.add(random);
+                            //System.out.println("[Potion]: Created Potion " + random.getColor());
+                            //System.out.println(random.getX() + " " + random.getY());
                             break;
                         case SCROLL:
                             System.out.println("Scroll create");
@@ -237,7 +239,7 @@ public class Functions {
                     if(use) {
                         messages[0] = "You found " + foundedItemColor +"! Do you want to drink it?";
                         messages[1] = "   [Y] Yes     [N] No";
-                        decision = Decision.DRINK_HP_POTION;
+                        decision = Decision.DRINK_POTION;
                     } else {
                         messages[0] = "You found " + foundedItemColor +"! Do you want to take it?";
                         messages[1] = "   [Y] Yes     [N] No";
@@ -252,22 +254,29 @@ public class Functions {
     public static void makeDecision(boolean answer) {
         if(decision == Decision.NONE) {
             return; //Nothing
-        } else if(decision == Decision.DRINK_HP_POTION && answer == true) {
+        } else if(decision == Decision.DRINK_POTION && answer) {
             //Reference.player.heal(Functions.getRandomNumber(5)+3);
             messages[0] = "You drank " + foundedItemColor;
             messages[1] = " ";
             messages[2] = " ";
             Reference.player.move(); //Drink potion
-        } else if(decision == Decision.DRINK_HP_POTION && answer == false) {
+        } else if(decision == Decision.DRINK_POTION && !answer) {
             use = false;
             messages[0] = " ";
             messages[1] = " ";
             messages[2] = " "; //Doesn't drink potion
-        } else if (decision == Decision.TAKE_ITEM && answer == true) {
+        } else if (decision == Decision.TAKE_ITEM && answer) {
             messages[0] = "You take " + foundedItemColor;
+            messages[1] = " ";
+            messages[2] = " ";
             Reference.inventory.addItemToBag(foundedItemColor);
             Reference.player.move();
             use = true;
+        } else if (decision == Decision.TAKE_ITEM && !answer) {
+            use = true;
+            messages[0] = " ";
+            messages[1] = " ";
+            messages[2] = " ";
         }
     }
 
