@@ -1,25 +1,22 @@
 package util;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import game.Main;
+
+import java.io.*;
 import java.util.ArrayList;
 
 public class ResourceManager {
     private static BufferedReader reader;
 
     /**Reads a .txt file containing the floor*/
-    public static ArrayList<String> readFloorFile(String fileName) {
+    public ArrayList<String> readFloorFile(String fileName) {
         System.out.println("[ResourceManager]: Reading "+fileName);
 
         ArrayList<String> strings = new ArrayList<String>();
 
-        try {
-            reader = new BufferedReader(new FileReader(fileName));
-        } catch (FileNotFoundException e) {
-            System.out.println("[ResourceManager] [ERROR]: file "+fileName+" not found!");
-        }
+        //reader = new BufferedReader(new FileReader(fileName));
+        InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
+        reader = new BufferedReader(new InputStreamReader(is));
 
         try {
             String str = reader.readLine();

@@ -18,8 +18,8 @@ public class Floor {
         System.out.println("[Floor]: Creating floor"+floorNumber);
 
         tiles = new ArrayList<ArrayList<Tile>>();
-
-        ArrayList<String> strs = ResourceManager.readFloorFile("src/main/java/resources/floor/floor"+floorNumber+".txt");
+        ResourceManager r = new ResourceManager();
+        ArrayList<String> strs = r.readFloorFile("floor"+floorNumber+".txt");
 
         for(int i=0;i<strs.size()-1;i++) {
             char[] charray = strs.get(i).toCharArray();
