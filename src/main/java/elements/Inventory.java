@@ -3,22 +3,26 @@ package elements;
 import java.util.Arrays;
 
 public class Inventory {
-    private String[] bag;
+    private Item[] bag;
     private int bagSize;
 
     public Inventory(int bagSize) {
         this.bagSize = bagSize;
-        bag = new String[bagSize];
-        Arrays.fill(bag, "Empty");
+        bag = new Item[bagSize];
+        //Arrays.fill(bag, "Empty");
     }
 
-    public String[] getBag() {
+    public Item[] getBag() {
         return bag;
     }
 
-    public boolean addItemToBag(String item) {
+    public Item getBagItem(int index) {
+        return bag[index];
+    }
+
+    public boolean addItemToBag(Item item) {
         for (int i = 0; bag.length > i; i++) {
-            if (bag[i] == "Empty") {
+            if (bag[i] == null) {
                 bag[i] = item;
                 return true;
             }
@@ -27,15 +31,14 @@ public class Inventory {
     }
 
     public void deleteItemFromBag(int index) {
-        bag[index] = "Empty";
+        bag[index] = null;
     }
 
     public boolean useItemFromBag(int slot) {
-        if ( !(bag[slot] == "Empty" )) {
+        if ( !(bag[slot] == null )) {
             deleteItemFromBag(slot);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 }
