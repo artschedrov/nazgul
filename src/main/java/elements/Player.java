@@ -11,8 +11,8 @@ public class Player extends Entity {
     private boolean alive = true;
     public Player(int posX, int posY) {
         super(posX, posY, 20, 10, 10, 10, 10);
-        this.equippedWeapon = Weapon.smallSword;
-        this.equippedArmor = Armor.softLeatherArmour;
+        this.equippedWeapon = Weapon.unarmed;
+        this.equippedArmor = Armor.unarmored;
     }
 
     @Override
@@ -44,8 +44,10 @@ public class Player extends Entity {
     public int getAC() {
         return this.ac;
     }
-    public void setAC() {
-        ac = super.getDex() + equippedArmor.getAc();
+
+    public void setAC(int ac) {
+        //this.ac = super.getDex() + equippedArmor.getAc();
+        super.setAC(ac);
     }
 
     public void equipWeapon(Weapon weapon) {
@@ -56,14 +58,34 @@ public class Player extends Entity {
 
     public void equipArmor(Armor armor) {
         this.equippedArmor = armor;
-        this.ac = getAC();
-        this.ac+=this.equippedArmor.getAc();
+        setAC(this.ac+=this.equippedArmor.getAc());
+    }
+
+    public void updateAC() {
+        this.ac = dex + this.equippedArmor.getAc();
     }
 
     public Weapon getWeapon() {return equippedWeapon;}
     /**Getter Method*/
     public Armor getArmor() {
         return equippedArmor;
+    }
+
+    public void heal(int amount) {
+        this.health+=amount;
+        if(health>maxHealth) health=maxHealth;
+    }
+
+    public void negativeEffect(Item item) {
+        switch (item.getName()) {
+            case "A Potion of Curse":
+                int dex = getDex();
+                int str = getStr();
+                setStr(str + 4);
+                setDex(dex - item.getProperty());
+                updateAC();
+                break;
+        }
     }
 
     public boolean isAlive() {return alive;}
