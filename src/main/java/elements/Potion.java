@@ -17,14 +17,25 @@ public class Potion extends Item {
             0,
             0,
             "A Potion of Curse",
-            "Black", ItemType.POTION,
-            true,
+            "Black",
+        ItemType.POTION,
+        true,
             2,
             "This black liquid is the cursed black magic of Mordor. Increases strength by 4 points but at the same time reduces constitution by 4 points.");
+
+    public static Potion potionHealWounds = new Potion(
+            0,
+            0,
+            "A Potion of heal wounds",
+            "Yellow",
+            ItemType.POTION,
+            true,
+            4,
+            "It's yellow liquid heal your wounds");
     //public static Potion potionOfDexterity = new Potion(0,0,"A Potion of Dexterity", "Green", ItemType.POTION, false);
     //public static Potion potionOfConstitution = new Potion(0,0,"A Potion of Constitution", "Brown", ItemType.POTION, false);
 
-    public static Potion[] potions = {potionOfCurse};
+    public static Potion[] potions = {potionOfCurse, potionHealWounds};
 
     private static ItemType itemType;
 

@@ -1,6 +1,7 @@
 package elements;
 
 import util.Action;
+import util.Mod;
 
 public class Player extends Entity {
     private String name;
@@ -10,9 +11,9 @@ public class Player extends Entity {
     private Armor equippedArmor;
     private boolean alive = true;
     public Player(int posX, int posY) {
-        super(posX, posY, 20, 10, 10, 10, 10);
+        super(posX, posY, 10, 10, 10, 10, 10);
         this.equippedWeapon = Weapon.unarmed;
-        this.equippedArmor = Armor.unarmored;
+        this.equippedArmor = Armor.softLeatherArmour;
     }
 
     @Override
@@ -50,6 +51,10 @@ public class Player extends Entity {
         super.setAC(ac);
     }
 
+    public void updateAC(int dex) {
+        super.updateAC(dex);
+    }
+
     public void equipWeapon(Weapon weapon) {
         this.equippedWeapon = weapon;
         //this.strenght=1;
@@ -58,11 +63,12 @@ public class Player extends Entity {
 
     public void equipArmor(Armor armor) {
         this.equippedArmor = armor;
-        setAC(this.ac+=this.equippedArmor.getAc());
+        this.ac+=this.equippedArmor.getAc();
     }
 
-    public void updateAC() {
-        this.ac = dex + this.equippedArmor.getAc();
+    public void calculateAC() {
+        int mod = Mod.calculateModificator(dex);
+        this.ac = 10 + mod + this.equippedArmor.getAc();
     }
 
     public Weapon getWeapon() {return equippedWeapon;}
@@ -81,9 +87,10 @@ public class Player extends Entity {
             case "A Potion of Curse":
                 int dex = getDex();
                 int str = getStr();
+                int con = getCon();
                 setStr(str + 4);
                 setDex(dex - item.getProperty());
-                updateAC();
+                calculateAC();
                 break;
         }
     }
