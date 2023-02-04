@@ -10,7 +10,8 @@ public class Functions {
     public static Decision decision = Decision.NONE;
     public static boolean use = true;
     public static String foundedItemName = "";
-    public static String foundedItemColor = "";
+    public static Item foundedItem = null;
+    public static int slotInAction;
 
     public static void initMovingTiles() {
 
@@ -82,6 +83,27 @@ public class Functions {
             case SPACE:
                 Reference.currentFloor = new Floor(1);
                 break;
+            case INFO:
+                if(Reference.inventory.getBagItem(slotInAction).checkIdentified()) {
+                    messages[0] = "It's " + Reference.inventory.getBagItem(slotInAction).getInfo();
+                    messages[1] = " ";
+                } else {
+                    messages[0] = "It's unknown " + Reference.inventory.getBagItem(slotInAction).getColor().toLowerCase() + " item";
+                    messages[1] = " ";
+                }
+
+                break;
+            case USE:
+                if(Reference.inventory.getBagItem(slotInAction).getColor() == "Black") {
+                    messages[0] = "You get curse -" + Reference.inventory.getBagItem(slotInAction).getProperty() + " DEX!";
+                    messages[1] = " ";
+                } else {
+                    messages[0] = "You get heal " + Reference.inventory.getBagItem(slotInAction).getProperty() + "HP";
+                    messages[1] = " ";
+                }
+                Item.useItem(Reference.inventory.getBagItem(slotInAction));
+                Reference.inventory.deleteItemFromBag(slotInAction);
+                break;
             case HUMAN:
                 Reference.player.setRace("Human");
                 Reference.player.setName("Glodram");
@@ -89,7 +111,8 @@ public class Functions {
                 Reference.player.setDex(10);
                 Reference.player.setCon(10);
                 Reference.player.setHP(10);
-                Reference.player.equipArmor(Armor.softLeatherArmour);
+                Reference.player.setAC(Reference.player.getDex());
+                //Reference.player.equipArmor(Armor.softLeatherArmour);
                 Reference.currentFloor = new Floor(2);
                 break;
             case ELF:
@@ -99,10 +122,10 @@ public class Functions {
                 Reference.player.setDex(12);
                 Reference.player.setCon(9);
                 Reference.player.setHP(9);
+                Reference.player.setAC(Reference.player.getDex());
                 Reference.player.equipArmor(Armor.softLeatherArmour);
                 Reference.currentFloor = new Floor(2);
                 break;
-
             case DWARF:
                 Reference.player.setRace("Dwarf");
                 Reference.player.setName("Bramdur");
@@ -110,7 +133,8 @@ public class Functions {
                 Reference.player.setDex(9);
                 Reference.player.setCon(12);
                 Reference.player.setHP(12);
-                Reference.player.equipArmor(Armor.softLeatherArmour);
+                Reference.player.setAC(Reference.player.getDex());
+                //Reference.player.equipArmor(Armor.softLeatherArmour);
                 Reference.currentFloor = new Floor(2);
                 break;
         }
@@ -233,15 +257,23 @@ public class Functions {
 
                 if (Reference.items.get(i).getItemType() == ItemType.POTION) {
                     foundedItemName = Reference.items.get(i).getName();
-                    foundedItemColor = "A " + Reference.items.get(i).getColor() + " Potion";
+                    foundedItem = Reference.items.get(i);
                     System.out.println(Reference.items.get(i).getName());
                     System.out.println(Reference.items.get(i).getColor());
                     if(use) {
-                        messages[0] = "You found " + foundedItemColor +"! Do you want to drink it?";
+                        if(foundedItem.checkIdentified()){
+                            messages[0] = "You found " + foundedItem.getName() + "! Do you want to drink it?";
+                        } else {
+                            messages[0] = "You found " + foundedItem.getColor() + " Potion" +"! Do you want to drink it?";
+                        }
                         messages[1] = "   [Y] Yes     [N] No";
                         decision = Decision.DRINK_POTION;
                     } else {
-                        messages[0] = "You found " + foundedItemColor +"! Do you want to take it?";
+                        if(!foundedItem.checkIdentified()) {
+                            messages[0] = "You found " + foundedItem.getColor() + " Potion" + "! Do you want to take it?";
+                        } else {
+                            messages[0] = "You found " + foundedItem.getName() + "! Do you want to take it?";
+                        }
                         messages[1] = "   [Y] Yes     [N] No";
                         decision = Decision.TAKE_ITEM;
                     }
@@ -256,7 +288,7 @@ public class Functions {
             return; //Nothing
         } else if(decision == Decision.DRINK_POTION && answer) {
             //Reference.player.heal(Functions.getRandomNumber(5)+3);
-            messages[0] = "You drank " + foundedItemColor;
+            messages[0] = "You drank " + foundedItem.getName();
             messages[1] = " ";
             messages[2] = " ";
             Reference.player.move(); //Drink potion
@@ -266,10 +298,16 @@ public class Functions {
             messages[1] = " ";
             messages[2] = " "; //Doesn't drink potion
         } else if (decision == Decision.TAKE_ITEM && answer) {
-            messages[0] = "You take " + foundedItemColor;
-            messages[1] = " ";
-            messages[2] = " ";
-            Reference.inventory.addItemToBag(foundedItemColor);
+            if(foundedItem.checkIdentified()) {
+                messages[0] = "You take " + foundedItem.getName();
+                messages[1] = " ";
+                messages[2] = " ";
+            } else {
+                messages[0] = "You take " + foundedItem.getColor() + " Potion";
+                messages[1] = " ";
+                messages[2] = " ";
+            }
+            Reference.inventory.addItemToBag(foundedItem);
             Reference.player.move();
             use = true;
         } else if (decision == Decision.TAKE_ITEM && !answer) {
@@ -295,5 +333,16 @@ public class Functions {
 
     public static String getMessageFromArray(int index) {
         return messages[index];
+    }
+
+    public static void initItemOptions(int slot) {
+        if(Reference.inventory.getBagItem(slot) == null) {
+            messages[0] = "It's empty";
+        } else {
+            slotInAction = slot;
+            messages[0] = "What do you want to do with this item?";
+            messages[1] = "   [I]nfo     [U]se";
+        }
+
     }
 }

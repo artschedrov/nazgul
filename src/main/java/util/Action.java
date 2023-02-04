@@ -5,6 +5,8 @@ public enum Action {
     LEFT,
     BACKWARDS,
     RIGHT,
+    INFO,
+    USE,
     SPACE,
     HUMAN,
     ELF,

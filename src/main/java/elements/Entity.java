@@ -3,8 +3,6 @@ package elements;
 import game.Reference;
 import util.Action;
 
-import java.util.Objects;
-
 public class Entity {
     protected int posX;
     protected int posY;
@@ -62,7 +60,7 @@ public class Entity {
         this.dex = dex;
     }
     public int getDex() {
-        return dex;
+        return this.dex;
     }
 
     public void setCon(int con) {
@@ -74,13 +72,23 @@ public class Entity {
 
     /**Getter Method*/
     public int getAC() {
-        ac = getDex() + Reference.player.getArmor().getAc();
         return ac;
     }
+
+    public void setAC(int dex) {
+        this.ac = dex;
+    }
+
+
 
     public void damage(int amount) {
         this.health-=amount;
     }
+
+//    public void heal(int amount) {
+//        this.health+=amount;
+//        if(health>maxHealth) health=maxHealth;
+//    }
 
     public int getDef() {return ac;}
 
