@@ -1,7 +1,7 @@
 package elements;
 
-import game.Reference;
 import util.Action;
+import util.Mod;
 
 public class Entity {
     protected int posX;
@@ -18,7 +18,7 @@ public class Entity {
     public Entity(int posX, int posY, int health, int str, int dex, int con, int ac) {
         this.setPos(posX, posY);
         this.health = health;
-        this.maxHealth = health;
+        this.maxHealth = getMaxHP();
         this.str = str;
         this.dex = dex;
         this.con = con;
@@ -36,19 +36,25 @@ public class Entity {
         return posY;
     }
 
-    public void setHP(int con) {
-        this.health = con;
+    public void setHP() {
+        this.health = maxHealth;
     }
     public int getHP() {
         return health;
     }
 
     /**Getter Method*/
+    public void setMaxHealth() {
+        this.maxHealth = getCon() + Mod.calculateModificator(getCon());
+    }
     public int getMaxHP() {
-        maxHealth = getCon();
         return maxHealth;
     }
 
+    public void updateMaxHealth(int con) {
+        int mod = Mod.calculateModificator(con);
+        this.maxHealth+=mod;
+    }
     public void setStr(int str) {
         this.str = str;
     }
@@ -75,8 +81,13 @@ public class Entity {
         return ac;
     }
 
-    public void setAC(int dex) {
-        this.ac = dex;
+    public void setAC(int ac) {
+        this.ac = ac;
+    }
+
+    public void updateAC(int dex) {
+        int mod = Mod.calculateModificator(dex);
+        this.ac+=mod;
     }
 
 
@@ -84,11 +95,6 @@ public class Entity {
     public void damage(int amount) {
         this.health-=amount;
     }
-
-//    public void heal(int amount) {
-//        this.health+=amount;
-//        if(health>maxHealth) health=maxHealth;
-//    }
 
     public int getDef() {return ac;}
 
