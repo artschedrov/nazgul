@@ -1,6 +1,7 @@
 package elements;
 
 public class Weapon {
+    public static Weapon unarmed = new Weapon("Unarmed", 1, 1);
     public static Weapon smallSword = new Weapon("Small Sword", 6, 1);
     private String name;
     private int dmg;
