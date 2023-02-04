@@ -26,7 +26,7 @@ public class Functions {
                             System.out.println("Player create");
                             break;
                         case GOBLIN:
-                            Reference.monsters.add(new Goblin("Goblin", x, y, 20));
+                            Reference.monsters.add(new Goblin("Goblin", x, y, 11));
                             System.out.println("Goblin create");
                             break;
                         case BAT:
@@ -94,13 +94,7 @@ public class Functions {
 
                 break;
             case USE:
-                if(Reference.inventory.getBagItem(slotInAction).getColor() == "Black") {
-                    messages[0] = "You get curse -" + Reference.inventory.getBagItem(slotInAction).getProperty() + " DEX!";
-                    messages[1] = " ";
-                } else {
-                    messages[0] = "You get heal " + Reference.inventory.getBagItem(slotInAction).getProperty() + "HP";
-                    messages[1] = " ";
-                }
+                itemUsing(Reference.inventory.getBagItem(slotInAction));
                 Item.useItem(Reference.inventory.getBagItem(slotInAction));
                 Reference.inventory.deleteItemFromBag(slotInAction);
                 break;
@@ -113,7 +107,7 @@ public class Functions {
                 Reference.player.setMaxHealth();
                 Reference.player.setHP();
                 Reference.player.setMaxHealth();
-                //Reference.player.equipArmor(Armor.softLeatherArmour);
+                Reference.player.equipArmor(Armor.softLeatherArmour);
                 Reference.currentFloor = new Floor(2);
                 break;
             case ELF:
@@ -136,7 +130,7 @@ public class Functions {
                 Reference.player.setCon(14);
                 Reference.player.setMaxHealth();
                 Reference.player.setHP();
-                //Reference.player.equipArmor(Armor.softLeatherArmour);
+                Reference.player.equipArmor(Armor.softLeatherArmour);
                 Reference.currentFloor = new Floor(2);
                 break;
         }
@@ -260,8 +254,6 @@ public class Functions {
                 if (Reference.items.get(i).getItemType() == ItemType.POTION) {
                     foundedItemName = Reference.items.get(i).getName();
                     foundedItem = Reference.items.get(i);
-                    System.out.println(Reference.items.get(i).getName());
-                    System.out.println(Reference.items.get(i).getColor());
                     if(use) {
                         if(foundedItem.checkIdentified()){
                             messages[0] = "You found " + foundedItem.getName() + "! Do you want to drink it?";
@@ -285,14 +277,25 @@ public class Functions {
         }
     }
 
+    public static void itemUsing(Item item) {
+        if(item.getColor() == "Black") {
+            messages[0] = "You get curse -" + item.getProperty() + " DEX!";
+            messages[1] = " ";
+        } else {
+            messages[0] = "You get heal " + item.getProperty() + "HP";
+            messages[1] = " ";
+        }
+    }
+
     public static void makeDecision(boolean answer) {
         if(decision == Decision.NONE) {
             return; //Nothing
         } else if(decision == Decision.DRINK_POTION && answer) {
-            //Reference.player.heal(Functions.getRandomNumber(5)+3);
             messages[0] = "You drank " + foundedItem.getName();
             messages[1] = " ";
             messages[2] = " ";
+            itemUsing(foundedItem);
+            Item.useItem(foundedItem);
             Reference.player.move(); //Drink potion
         } else if(decision == Decision.DRINK_POTION && !answer) {
             use = false;
