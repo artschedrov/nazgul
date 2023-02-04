@@ -30,7 +30,7 @@ public class Functions {
                             System.out.println("Goblin create");
                             break;
                         case BAT:
-                            Reference.monsters.add(new Bat("Bat", x,y, 4, 2, 12, 12));
+                            Reference.monsters.add(new Bat("Bat", x,y, 8, 2, 15, 12));
                             System.out.println("Bat create");
                             break;
                         default:
