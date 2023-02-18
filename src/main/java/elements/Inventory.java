@@ -1,41 +1,33 @@
 package elements;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Inventory {
-    private Item[] bag;
-    private int bagSize;
+    private ArrayList<Item> bag;
 
-    public Inventory(int bagSize) {
-        this.bagSize = bagSize;
-        bag = new Item[bagSize];
-        //Arrays.fill(bag, "Empty");
+    public Inventory() {
+        bag = new ArrayList<Item>();
     }
 
-    public Item[] getBag() {
+    public ArrayList<Item> getBag() {
         return bag;
     }
 
     public Item getBagItem(int index) {
-        return bag[index];
+        return bag.get(index);
     }
 
     public boolean addItemToBag(Item item) {
-        for (int i = 0; bag.length > i; i++) {
-            if (bag[i] == null) {
-                bag[i] = item;
-                return true;
-            }
-        }
-        return false;
+        bag.add(item);
+        return true;
     }
 
     public void deleteItemFromBag(int index) {
-        bag[index] = null;
+        bag.remove(index);
     }
 
     public boolean useItemFromBag(int slot) {
-        if ( !(bag[slot] == null )) {
+        if ( !(bag.get(slot) == null )) {
             deleteItemFromBag(slot);
             return true;
         }

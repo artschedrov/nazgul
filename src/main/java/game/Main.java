@@ -37,7 +37,7 @@ public class Main {
         //initialization
         Reference.currentFloor = new Floor(0);
         Reference.player = new Player(3, 2);
-        Reference.inventory = new Inventory(6);
+        Reference.inventory = new Inventory();
         Reference.monsters = new ArrayList<Monster>();
         Reference.items = new ArrayList<Item>();
         Functions.initMovingTiles();
