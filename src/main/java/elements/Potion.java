@@ -4,20 +4,11 @@ import util.ItemType;
 import java.util.Random;
 
 public class Potion extends Item {
-//    public static Potion potionOfHeal = new Potion(
-//            0,
-//            0,
-//            "A Potion of Heal",
-//            "Yellow",
-//            ItemType.POTION,
-//            false,
-//            5
-//    );
     public static Potion potionOfCurse = new Potion(
             0,
             0,
-            "A Potion of Curse",
-            "Black",
+            "a potion of Curse",
+            "black",
         ItemType.POTION,
         true,
             2,
@@ -26,10 +17,10 @@ public class Potion extends Item {
     public static Potion potionHealWounds = new Potion(
             0,
             0,
-            "A Potion of heal wounds",
-            "Yellow",
+            "a potion of heal wounds",
+            "yellow",
             ItemType.POTION,
-            true,
+            false,
             4,
             "It's yellow liquid heal your wounds");
     //public static Potion potionOfDexterity = new Potion(0,0,"A Potion of Dexterity", "Green", ItemType.POTION, false);

@@ -83,19 +83,19 @@ public class Functions {
             case SPACE:
                 Reference.currentFloor = new Floor(1);
                 break;
-            case INFO:
-                if(Reference.inventory.getBagItem(slotInAction).checkIdentified()) {
-                    messages[0] = "It's " + Reference.inventory.getBagItem(slotInAction).getInfo();
-                    messages[1] = " ";
-                } else {
-                    messages[0] = "It's unknown " + Reference.inventory.getBagItem(slotInAction).getColor().toLowerCase() + " item";
-                    messages[1] = " ";
-                }
-
-                break;
+//            case INFO:
+//                if(Reference.inventory.getBagItem(slotInAction).checkIdentified()) {
+//                    messages[0] = "It's " + Reference.inventory.getBagItem(slotInAction).getInfo();
+//                    messages[1] = " ";
+//                } else {
+//                    messages[0] = "It's unknown " + Reference.inventory.getBagItem(slotInAction).getColor().toLowerCase() + " item";
+//                    messages[1] = " ";
+//                }
+//
+//                break;
             case USE:
-                itemUsing(Reference.inventory.getBagItem(slotInAction));
-                Item.useItem(Reference.inventory.getBagItem(slotInAction));
+                itemUsing(Reference.inventory.getBagItem2(slotInAction, 0));
+                Item.useItem(Reference.inventory.getBagItem2(slotInAction, 0));
                 Reference.inventory.deleteItemFromBag(slotInAction);
                 break;
             case HUMAN:
@@ -312,7 +312,7 @@ public class Functions {
                 messages[1] = " ";
                 messages[2] = " ";
             }
-            Reference.inventory.addItemToBag(foundedItem);
+            Reference.inventory.addItemToBag2(foundedItem);
             Reference.player.move();
             use = true;
         } else if (decision == Decision.TAKE_ITEM && !answer) {
@@ -341,7 +341,7 @@ public class Functions {
     }
 
     public static void initItemOptions(int slot) {
-        if(Reference.inventory.getBagItem(slot) == null) {
+        if(Reference.inventory.getBagItem2(slot, 0) == null) {
             messages[0] = "It's empty";
         } else {
             slotInAction = slot;
