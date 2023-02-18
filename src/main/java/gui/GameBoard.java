@@ -5,6 +5,7 @@ import game.Main;
 import game.Reference;
 import util.Action;
 import util.Functions;
+import util.Tile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GameBoard extends JPanel implements KeyListener {
+    boolean switchStatus = false;
     public GameBoard() {
         addKeyListener(this);
         this.setFocusable(true);
@@ -65,20 +67,22 @@ public class GameBoard extends JPanel implements KeyListener {
 
         }
 
-        for(int i=0;i<Reference.currentFloor.getHeight();i++) {
-            for(int j=0;j<Reference.currentFloor.getWidth();j++) {
-                g.drawString(""+Reference.currentFloor.getTileChar(j, i), x, y);
-                x+=10;
-            }
-            //y+=15; x=15;
-            if(Reference.currentFloor.isFirstFloor()) {
-                x=280; y+=15;
-                g.setFont(new Font("Monospaced", Font.PLAIN, 15));
-                g.drawString("Press SPACE to start", 420, 510);
-            } else {
-                x=200; y+=15;
-            }
-        }
+//        for(int i=0;i<Reference.currentFloor.getHeight();i++) {
+//            for(int j=0;j<Reference.currentFloor.getWidth();j++) {
+//                g.drawString(""+Reference.currentFloor.getTileChar(j, i), x, y);
+//                x+=10;
+//            }
+//            //y+=15; x=15;
+//            if(Reference.currentFloor.isFirstFloor()) {
+//                x=280; y+=15;
+//                g.setFont(new Font("Monospaced", Font.PLAIN, 15));
+//                g.drawString("Press SPACE to start", 420, 510);
+//            } else {
+//                x=200; y+=15;
+//            }
+//        }
+
+        drawChars(g, x, y);
         //Player stats
         if(!Reference.currentFloor.isFirstFloor() && !(Floor.currentFloor == 1)) {
             g.setFont(new Font("arial", Font.PLAIN, 15));
@@ -99,25 +103,6 @@ public class GameBoard extends JPanel implements KeyListener {
             g.drawString("Armor Equipped:", 10, 350);
             g.drawString(Reference.player.getArmor().getName(), 20, 375);
 
-            g.setColor(Color.PINK);
-            g.drawString("Items in your bag:", 800, 50);
-
-            int xcord = 800;
-            int ycord = 75;
-            g.setColor(Color.WHITE);
-            for(int i = 0; i <= 5; i++) {
-                int slotShift = i + 1;
-                if(Reference.inventory.getBagItem(i) == null) {
-                    g.drawString("["+slotShift+"] " + "Empty", xcord, ycord + 25 * i);
-                } else {
-                    if(Reference.inventory.getBagItem(i).checkIdentified()) {
-                        g.drawString("["+slotShift+"] " + Reference.inventory.getBagItem(i).getName(), xcord, ycord + 25 * i);
-                    } else {
-                        g.drawString("["+slotShift+"] " + "A " + Reference.inventory.getBagItem(i).getColor() + " Potion", xcord, ycord + 25 * i);
-                    }
-
-                }
-            }
             //Message
 
             g.drawString(Functions.getMessageFromArray(0), 30, 480);
@@ -125,6 +110,13 @@ public class GameBoard extends JPanel implements KeyListener {
             g.drawString(Functions.getMessageFromArray(2), 30, 520);
             g.drawString(Functions.getMessageFromArray(3), 30, 540);
 
+        }
+        if(switchStatus) {
+            switchPlayerInventory(g);
+            g.drawString(Functions.getMessageFromArray(0), 30, 480);
+            g.drawString(Functions.getMessageFromArray(1), 30, 500);
+            g.drawString(Functions.getMessageFromArray(2), 30, 520);
+            g.drawString(Functions.getMessageFromArray(3), 30, 540);
         }
     }
 
@@ -189,6 +181,9 @@ public class GameBoard extends JPanel implements KeyListener {
                         Functions.moveMonsters();
                         Reference.currentFloor.updateMonstersPos();
                         break;
+                    case KeyEvent.VK_B:
+                        setSwitchStatus();
+                        break;
                     case KeyEvent.VK_Y:
                         Functions.makeDecision(true);
                         Reference.currentFloor.updatePlayerPos();
@@ -231,6 +226,56 @@ public class GameBoard extends JPanel implements KeyListener {
         }
     }
 
+    public void drawChars(Graphics g, int x, int y) {
+        for(int i=0;i<Reference.currentFloor.getHeight();i++) {
+            for(int j=0;j<Reference.currentFloor.getWidth();j++) {
+                g.drawString(""+Reference.currentFloor.getTileChar(j, i), x, y);
+                x+=10;
+            }
+            //y+=15; x=15;
+            if(Reference.currentFloor.isFirstFloor()) {
+                x=280; y+=15;
+                g.setFont(new Font("Monospaced", Font.PLAIN, 15));
+                g.drawString("Press SPACE to start", 420, 510);
+            } else {
+                x=200; y+=15;
+            }
+        }
+    }
+
+    public void setSwitchStatus() {
+        if(switchStatus) {
+            switchStatus = false;
+        } else {
+            switchStatus = true;
+        }
+    }
+
+    public void switchPlayerInventory(Graphics g) {
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, Reference.windowWidth, 800);
+        g.setColor(Color.WHITE);
+        g.drawRoundRect(5, 5, Reference.windowWidth-10, Reference.windowHeight-150, 5, 5);
+        g.setFont(new Font("arial", Font.PLAIN, 15));
+        g.setColor(Color.PINK);
+        g.drawString("Your inventory", 10,50);
+        int xcord = 20;
+        int ycord = 75;
+        g.setColor(Color.WHITE);
+        for(int i = 0; i < Reference.inventory.getBag().size(); i++) {
+            int slotShift = i + 1;
+            if(Reference.inventory.getBagItem(i) == null) {
+                //g.drawString("["+slotShift+"] " + "Empty", xcord, ycord + 25 * i);
+            } else {
+                if(Reference.inventory.getBagItem(i).checkIdentified()) {
+                    g.drawString("["+slotShift+"] " + Reference.inventory.getBagItem(i).getName(), xcord, ycord + 25 * i);
+                } else {
+                    g.drawString("["+slotShift+"] " + "A " + Reference.inventory.getBagItem(i).getColor() + " Potion", xcord, ycord + 25 * i);
+                }
+
+            }
+        }
+    }
     @Override
     public void keyTyped(KeyEvent arg0) {
 
