@@ -10,7 +10,7 @@ public class Item {
     private String color;
     private ItemType itemType;
     protected boolean isIdentified = false;
-    static int property;
+    protected int property;
     private String info;
 
     public Item(int posX,
@@ -73,6 +73,10 @@ public class Item {
 
     public int getProperty() {
         return this.property;
+    }
+
+    public void setProperty(int property) {
+        this.property = property;
     }
 
     public static void useItem(Item item) {
